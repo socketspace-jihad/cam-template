@@ -14,23 +14,23 @@ function configureLogging() {
         $('#logs').append($(`<div class="${level.toLowerCase()}">`).text(`[${new Date().toISOString()}] [${level}] ${text}\n`));
     }
 
-    console._error = console.error;
-    console.error = function(...rest) {
-        log('ERROR', Array.prototype.slice.call(rest));
-        console._error.apply(this, rest);
-    };
+    // console._error = console.error;
+    // console.error = function(...rest) {
+    //     // log('ERROR', Array.prototype.slice.call(rest));
+    //     console._error.apply(this, rest);
+    // };
 
-    console._warn = console.warn;
-    console.warn = function(...rest) {
-        log('WARN', Array.prototype.slice.call(rest));
-        console._warn.apply(this, rest);
-    };
+    // console._warn = console.warn;
+    // console.warn = function(...rest) {
+    //     // log('WARN', Array.prototype.slice.call(rest));
+    //     console._warn.apply(this, rest);
+    // };
 
-    console._log = console.log;
-    console.log = function(...rest) {
-        log('INFO', Array.prototype.slice.call(rest));
-        console._log.apply(this, rest);
-    };
+    // console._log = console.log;
+    // console.log = function(...rest) {
+    //     // log('INFO', Array.prototype.slice.call(rest));
+    //     console._log.apply(this, rest);
+    // };
 }
 
 function getRandomClientId() {
@@ -42,21 +42,21 @@ function getRandomClientId() {
 
 function getFormValues() {
     return {
-        region: $('#region').val(),
-        channelName: $('#channelName').val(),
-        clientId: $('#clientId').val() || getRandomClientId(),
-        sendVideo: $('#sendVideo').is(':checked'),
-        sendAudio: $('#sendAudio').is(':checked'),
-        openDataChannel: $('#openDataChannel').is(':checked'),
-        widescreen: $('#widescreen').is(':checked'),
-        fullscreen: $('#fullscreen').is(':checked'),
-        useTrickleICE: $('#useTrickleICE').is(':checked'),
-        natTraversalDisabled: $('#natTraversalDisabled').is(':checked'),
-        forceTURN: $('#forceTURN').is(':checked'),
-        accessKeyId: $('#accessKeyId').val(),
-        endpoint: $('#endpoint').val() || null,
-        secretAccessKey: $('#secretAccessKey').val(),
-        sessionToken: $('#sessionToken').val() || null,
+        region: "ap-southeast-1",
+        channelName: "kooka-cam-1",
+        clientId: getRandomClientId(),
+        sendVideo: false,
+        sendAudio: false,
+        openDataChannel: false,
+        widescreen: true,
+        fullscreen: false,
+        useTrickleICE: true,
+        natTraversalDisabled: false,
+        forceTURN: true,
+        accessKeyId: "AKIAQPHIKE3VLBBZDW5M",
+        endpoint: null,
+        secretAccessKey: "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",
+        sessionToken: null,
     };
 }
 
@@ -92,7 +92,7 @@ function onStop() {
 window.addEventListener('beforeunload', onStop);
 
 window.addEventListener('error', function(event) {
-    console.error(event.message);
+    // console.error(event.message);
     event.preventDefault();
 });
 
@@ -101,7 +101,7 @@ window.addEventListener('unhandledrejection', function(event) {
     event.preventDefault();
 });
 
-configureLogging();
+// configureLogging();
 
 $('#master-button').click(async () => {
     ROLE = 'master';
@@ -125,24 +125,22 @@ $('#master-button').click(async () => {
 
 $('#stop-master-button').click(onStop);
 
-$('#viewer-button').click(async () => {
-    ROLE = 'viewer';
-    $('#form').addClass('d-none');
-    $('#viewer').removeClass('d-none');
+ROLE = 'viewer';
+$('#form').addClass('d-none');
+$('#viewer').removeClass('d-none');
 
-    const localView = $('#viewer .local-view')[0];
-    const remoteView = $('#viewer .remote-view')[0];
-    const localMessage = $('#viewer .local-message')[0];
-    const remoteMessage = $('#viewer .remote-message')[0];
-    const formValues = getFormValues();
+const localView = $('#viewer .local-view')[0];
+const remoteView = $('#viewer .remote-view')[0];
+const localMessage = $('#viewer .local-message')[0];
+const remoteMessage = $('#viewer .remote-message')[0];
+const formValues = getFormValues();
 
-    $(remoteMessage).empty();
-    localMessage.value = '';
-    toggleDataChannelElements();
+$(remoteMessage).empty();
+localMessage.value = '';
+toggleDataChannelElements();
 
-    startViewer(localView, remoteView, formValues, onStatsReport, event => {
-        remoteMessage.append(`${event.data}\n`);
-    });
+startViewer(localView, remoteView, formValues, onStatsReport, event => {
+    remoteMessage.append(`${event.data}\n`);
 });
 
 $('#stop-viewer-button').click(onStop);

@@ -87,9 +87,16 @@ async function startViewer(localView, remoteView, formValues, onStatsReport, onR
         systemClockOffset: kinesisVideoClient.config.systemClockOffset,
     });
 
-    const resolution = formValues.widescreen ? { width: { ideal: 1280 }, height: { ideal: 720 } } : { width: { ideal: 640 }, height: { ideal: 480 } };
+    const resolution = formValues.widescreen ? { width: { ideal: 720 }, height: { ideal: 1280 } } : { width: { ideal: 480 }, height: { ideal: 640 } };
     const constraints = {
-        video: formValues.sendVideo ? resolution : false,
+        video: {
+            'mandatory': {
+              'minWidth':
+                  '720', // Provide your own width, height and frame rate here
+              'minHeight': '1280',
+              'minFrameRate': '30'
+            }
+        },
         audio: formValues.sendAudio,
     };
     const configuration = {

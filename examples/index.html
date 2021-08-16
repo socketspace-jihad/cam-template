@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="loader.css">
-    <link rel="stylesheet" href="./app.css">
+    <!-- <link rel="stylesheet" href="./app.css"> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.585.0.min.js"></script>
@@ -16,13 +16,8 @@
 </head>
 <body>
 
-<div class="container mt-3">
-    <h1>KVS WebRTC Test Page</h1>
-    <p>This is the KVS Signaling Channel WebRTC test page. Use this page to connect to a signaling channel as either the MASTER or as a VIEWER.</p>
-
-    <div class="row loader"></div>
-    <div id="main" class="d-none">
-        <form id="form">
+<div class="container px-0">
+        <!-- <form id="form">
             <h4>KVS Endpoint</h4>
             <div class="form-group">
                 <label>Region</label>
@@ -109,20 +104,10 @@
                 <button id="viewer-button" type="button" class="btn btn-primary">Start Viewer</button>
                 <button id="create-channel-button" type="button" class="btn btn-primary">Create Channel</button>
             </div>
-        </form>
+        </form> -->
 
-        <div id="master" class="d-none">
-            <h2>Master</h2>
-            <div class="row">
-                <div class="col">
-                    <h5>Master Section</h5>
+        <!-- <div id="master" class="d-none">
                     <div class="video-container"><video class="local-view" autoplay playsinline controls muted /></div>
-                </div>
-                <div class="col">
-                    <h5>Viewer Return Channel</h5>
-                    <div class="video-container"><video class="remote-view" autoplay playsinline controls /></div>
-                </div>
-            </div>
             <div class="row datachannel">
                 <div class="col">
                     <div class="form-group">
@@ -141,20 +126,10 @@
                 </span>
                 <button id="stop-master-button" type="button" class="btn btn-primary">Stop Master</button>
             </div>
-        </div>
+        </div> -->
 
-        <div id="viewer" class="d-none">
-            <h2>Viewer</h2>
-            <div class="row">
-                <div class="col">
-                    <h5>Return Channel</h5>
-                    <div class="video-container"><video class="local-view" autoplay playsinline controls muted /></div>
-                </div>
-                <div class="col">
-                    <h5>From Master</h5>
-                    <div class="video-container"><video class="remote-view" autoplay playsinline controls /></div>
-                </div>
-            </div>
+        <div id="viewer">
+                <video width="100%" class="remote-view" style="height: 812px; object-fit: cover;" controls autoplay="true" playsinline></video>
             <div class="row datachannel">
                 <div class="col">
                     <div class="form-group">
@@ -168,19 +143,17 @@
                 </div>
             </div>
             <div>
-                <span class="send-message datachannel" class="d-none">
+                <!-- <span class="send-message datachannel" class="d-none">
                   <button type="button" class="btn btn-primary">Send DataChannel Message</button>
                 </span>
-                <button id="stop-viewer-button" type="button" class="btn btn-primary">Stop Viewer</button>
+                <button id="stop-viewer-button" type="button" class="btn btn-primary">Stop Viewer</button> -->
             </div>
         </div>
 
-        <h3 id="logs-header">Logs</h3>
+        <!-- <h3 id="logs-header">Logs</h3>
         <div class="card bg-light mb-3">
             <pre id="logs" class="card-body text-monospace preserve-whitespace"></pre>
-        </div>
-
-    </div>
+        </div> -->
 </div>
 
 <div id="test"></div>
